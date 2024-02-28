@@ -1,0 +1,41 @@
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.controls input[type="search"] {
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 6px;
+    outline: none;
+}
+
+.controls button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    transition: all 0.3s;
+    padding: 0.25rem;
+    height: 32px;
+    width: 32px;
+}
+
+.controls button:hover {
+    background-color: var(--color-gray);
+}
+
+@media (min-width: 475px) {
+    .controls input[type="search"] {
+        width: 300px;
+    }
+}
+
+@media (min-width: 768px) {
+    .controls input[type="search"] {
+        width: 630px;
+    }
+}

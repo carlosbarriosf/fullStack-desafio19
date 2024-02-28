@@ -1,0 +1,35 @@
+.products-container {
+    padding: 1rem;
+    margin: 1rem auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 0.5rem;
+    border: 1px solid black;
+}
+
+
+tr:hover {
+    background-color: var(--color-gray);
+}
+.table-header:hover {
+    background-color: transparent;
+}
+
+.product__name {
+    font-size: 0.9rem;
+}
+
+.product__price {
+    font-size: 0.8rem;
+    text-align: right;
+    padding-right: 4px;
+}
+
+@media (min-width:648px) {
+    .products-container {
+        width: 675px;
+    }
+}
