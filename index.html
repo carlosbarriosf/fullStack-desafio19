@@ -23,17 +23,21 @@
             </button>
         </div>
 
-        <table data-products-container class="products-container">
-            <tr class="table-header">
-                <th>Nombre del producto</th>
-                <th>Precio</th>
-            </tr>
-            <template data-product-template>
-                <tr data-product class="product">
-                    <td data-product-name class="product__name"></td>
-                    <td data-product-price class="product__price"></td>
+        <table class="products-container">
+            <thead>
+                <tr class="table-header">
+                    <th>Nombre del producto</th>
+                    <th>Precio</th>
                 </tr>
-            </template>
+            </thead>
+            <tbody data-products-container>
+                <template data-product-template>
+                    <tr data-product class="product">
+                        <td data-product-name class="product__name"></td>
+                        <td data-product-price class="product__price"></td>
+                    </tr>
+                </template>
+            </tbody>
         </table>
     </main>
 

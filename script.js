@@ -7,12 +7,12 @@ async function getProducts (api) {
 }
 
 const mainElement = document.querySelector('main');
+const productContainer = document.querySelector('[data-products-container]');
 
 async function populateHtml(api) {
 
-    const productContainer = document.querySelector('[data-products-container]');
 
-    const newDiv = document.createElement('div')
+    // const newDiv = document.createElement('div')
 
     const productArray = await getProducts(api);
 
@@ -27,10 +27,11 @@ async function populateHtml(api) {
         const productPrice = product.querySelector('[data-product-price]');
         productPrice.innerText = `$${item.price}`;
 
-        newDiv.appendChild(product);
+        // newDiv.appendChild(product);
+        productContainer.appendChild(product)
     })
 
-    productContainer.innerHTML += newDiv.innerHTML
+    // productContainer.innerHTML += newDiv.innerHTML
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -46,30 +47,49 @@ const keyWords = ['computadora', 'notebook', 'aire acondicionado', 'heladera', '
 searchButton.addEventListener('click', () => {
     const searchValue = searchInput.value.toLowerCase();
 
-    let i = 0;
+    // let i = 0;
     let keyWordFound = false;
 
-    do {
+    //I define i with the var keyword in the loop so it creates a closure
+    //  that I can use later in the code
+    for(var i = 0; i< keyWords.length; i++) {
         keyWordFound = keyWords[i].includes(searchValue);
-        i++
-    } while (keyWordFound === false);
-
-    let keyWord = keyWords[i - 1];
-
-    if(keyWord === 'computadora') {
-        keyWord = 'notebook';
+        if (keyWordFound) break
     }
 
-    const apiToRequest = `${apiEndpoint}?category=${keyWord}`;
-    clearTable()
+    let keyWord;
+    if (keyWordFound) {
+        keyWord = keyWords[i];
+        if(keyWord === 'computadora') {
+            keyWord = 'notebook';
+        }
+        const apiToRequest = `${apiEndpoint}?category=${keyWord}`;
+        clearTable()
+        
+        populateHtml(apiToRequest);
     
-    populateHtml(apiToRequest);
-
+    } else {
+        // console.log('no se encontro nada')
+        const newTableRow = document.createElement('tr');
+        newTableRow.setAttribute('data-product', '')
+        const newTableData = document.createElement('td');
+        const emptyTableData = document.createElement('td');
+        newTableData.innerText = 'No se encontraron productos';
+        clearTable();
+        newTableRow.appendChild(newTableData);
+        newTableRow.appendChild(emptyTableData);
+        productContainer.appendChild(newTableRow);
+    }
+    
     searchInput.value = '';
+
 })
 
 function clearTable() {
-    const table = document.querySelector('[data-products-container]');
-    const items = document.querySelectorAll('tbody')
-    table.removeChild(items[1]);
+    const items = Array.from(document.querySelectorAll('[data-product]'));
+    items.forEach(item => {
+        productContainer.removeChild(item)
+    })
 }
+
+
